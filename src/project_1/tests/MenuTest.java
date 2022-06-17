@@ -8,6 +8,6 @@ public class MenuTest {
 
         mainMenu.addOption(1, "Register Product");
 
-        mainMenu.display();
+        mainMenu.run();
     }
 }

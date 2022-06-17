@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    public Connection getConnection(String _dataBase){
+    public static Connection getConnection(String _dataBase){
         String ip = "jdbc:mysql://localhost:3306/";
         String url = ip + _dataBase;
         try {
