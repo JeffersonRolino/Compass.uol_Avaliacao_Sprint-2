@@ -1,6 +1,5 @@
 package project_1.tests;
 
-import java.util.ArrayList;
 import project_1.classes.Catalog;
 import project_1.classes.Product;
 
