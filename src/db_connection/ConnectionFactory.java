@@ -10,6 +10,7 @@ public class ConnectionFactory {
         String ip = "jdbc:mysql://localhost:3306/";
         String url = ip + _dataBase;
         try {
+            System.out.println("Connection is open...");
             return DriverManager.getConnection(url, "root", "root");
         } catch (SQLException exception){
             throw new RuntimeException(exception);

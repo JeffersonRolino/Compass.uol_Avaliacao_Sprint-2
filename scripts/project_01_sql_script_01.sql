@@ -1,12 +1,12 @@
-create database produtos_db;
+create database products_db;
 
-use produtos_db;
+use products_db;
 
-create table `produtos_db`.`produtos` (
+create table `products_db`.`product` (
   `id` int not null	auto_increment,
-  `nome` VARCHAR(75) not null,
-  `descricao` VARCHAR(200) not null,
-  `quantidade` int not null,
-  `preco` double not null,
+  `name` VARCHAR(75) not null,
+  `description` VARCHAR(200) not null,
+  `quantity` int not null,
+  `price` double not null,
   primary key(`id`)
 );
