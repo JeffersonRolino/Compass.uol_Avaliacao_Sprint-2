@@ -3,12 +3,53 @@ package project_1.daos;
 import db_connection.ConnectionFactory;
 import project_1.classes.Product;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ProductDAO {
+
+    // Comando para retornar os últimos 3 produtos do product_db.product:
+    //      SELECT * FROM products_db.product ORDER BY id DESC LIMIT 3;
+    public static void selectLastThree(){
+        Connection connection = ConnectionFactory.getConnection("products_db");
+        String sqlCommand = "select * from `products_db`.`product` order by `id` desc limit 3;";
+
+        try(Statement stm = connection.createStatement()){
+            ResultSet resultSet = stm.executeQuery(sqlCommand);
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                int quantity = resultSet.getInt("quantity");
+                double price = resultSet.getDouble("price");
+
+                System.out.println("Produto: " + id + ", " + name + ", " + description + ", " + quantity + ", R$ " + price);
+            }
+        } catch (SQLException exception){
+            exception.printStackTrace();
+        }
+    }
+
+    public static int[] selectLastThreeIDs(){
+        Connection connection = ConnectionFactory.getConnection("products_db");
+        String sqlCommand = "select * from `products_db`.`product` order by `id` desc limit 3;";
+
+        int counter = 0;
+        int[] lastThreeIDs = new int[3];
+
+        try(Statement stm = connection.createStatement()){
+            ResultSet resultSet = stm.executeQuery(sqlCommand);
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                lastThreeIDs[counter] = id;
+                counter++;
+            }
+            return lastThreeIDs;
+        } catch (SQLException exception){
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static void selectAll(){
         Connection connection = ConnectionFactory.getConnection("products_db");
