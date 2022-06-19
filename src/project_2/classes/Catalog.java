@@ -51,9 +51,11 @@ public class Catalog {
         int indexStart = (_page - 1) * this.pageSize;
         int indexEnd = _page * this.pageSize;
 
-        for (int i = indexStart; i < indexEnd && i < _numberOfMovies; i++) {
-            System.out.println(this.movies.get(i).getId());
-        }
+//        System.out.println(indexStart);
+//        System.out.println(indexEnd);
 
+        for (int i = indexStart; i < (indexStart + _numberOfMovies) && i < indexEnd; i++) {
+            System.out.println(this.movies.get(i).getId() + ", " + this.movies.get(i).getName());
+        }
     }
 }

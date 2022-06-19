@@ -18,5 +18,11 @@ public class CatalogTest {
 //        }
 
         catalog.queryMovies(3,2);
+        System.out.println("");
+        catalog.queryMovies(6,3);
+        System.out.println("");
+        catalog.queryMovies(5,4);
+        System.out.println("");
+        catalog.queryMovies(5,5);
     }
 }
