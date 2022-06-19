@@ -107,14 +107,14 @@ public class ProductDAO {
         }
     }
 
-    public static void update(Product product){
+    public static void update(int _id, Product product){
         Connection connection = ConnectionFactory.getConnection("products_db");
-        String sqlCommand = "update `products_db`.`product` set `name` = '" + product.getName() + "', `description` = '" + product.getDescription() + "', `quantity` = '" + product.getQuantity() + "', `price` = '" + product.getPrice()+ "' where (`id` = '" + product.getId() + "');";
+        String sqlCommand = "update `products_db`.`product` set `name` = '" + product.getName() + "', `description` = '" + product.getDescription() + "', `quantity` = '" + product.getQuantity() + "', `price` = '" + product.getPrice()+ "' where (`id` = '" + _id + "');";
 
-        if(product == null || product.getId() == 0){
-            System.out.println("Registro inexistente...");
-            return;
-        }
+//        if(product == null || product.getId() == 0){
+//            System.out.println("Registro inexistente...");
+//            return;
+//        }
 
         try {
             Statement stm = connection.createStatement();
@@ -129,14 +129,9 @@ public class ProductDAO {
 
     }
 
-    public static void delete(Product product){
+    public static void delete(int _id){
         Connection connection = ConnectionFactory.getConnection("products_db");
-        String sqlCommand = "delete from `products_db`.`product` where (`id` = '" + product.getId() + "');";
-
-        if(product == null || product.getId() == 0){
-            System.out.println("Registro inexistente...");
-            return;
-        }
+        String sqlCommand = "delete from `products_db`.`product` where (`id` = '" + _id + "');";
 
         try {
             Statement stm = connection.createStatement();

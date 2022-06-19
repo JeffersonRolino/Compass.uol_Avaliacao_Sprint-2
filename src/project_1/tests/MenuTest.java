@@ -6,8 +6,6 @@ public class MenuTest {
     public static void main(String[] args) {
         Menu mainMenu = new Menu();
 
-        mainMenu.addOption(1, "Register Product");
-
         mainMenu.run();
     }
 }
