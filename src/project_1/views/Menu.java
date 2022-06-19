@@ -1,15 +1,14 @@
 package project_1.views;
 
 import project_1.classes.Catalog;
-import project_1.controllers.ProductController;
+import project_1.managers.ProductManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner;
+    Catalog catalog;
     int menuOption = 42;
-    private final Catalog catalog;
 
     public Menu(){
         this.scanner = new Scanner(System.in);
@@ -24,13 +23,13 @@ public class Menu {
                 menuOption = scanner.nextInt();
                 scanner.nextLine();
                 if(menuOption == 1){
-                    ProductController.addThreeRandomProducts(this.catalog);
+                    ProductManager.addThreeRandomProducts(this.catalog);
                 }
                 else if(menuOption == 2){
-                    ProductController.updateFirstProduct(this.catalog);
+                    ProductManager.updateFirstProduct(this.catalog);
                 }
                 else if(menuOption == 3){
-                    ProductController.deleteSecondProduct(this.catalog);
+                    ProductManager.deleteSecondProduct(this.catalog);
                 }
             }
             else {
@@ -44,7 +43,7 @@ public class Menu {
 
     public void display(){
         System.out.println("------------------------------------------------------------");
-        System.out.println("\tMAIN MENU");
+        System.out.println("\tMENU");
         System.out.println("------------------------------------------------------------");
         System.out.println("1 - Adicionar 3 Produtos");
         System.out.println("2 - Atualizar Primeiro Produto");

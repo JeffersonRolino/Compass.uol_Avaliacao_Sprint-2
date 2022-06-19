@@ -4,6 +4,7 @@ import db_connection.ConnectionFactory;
 import project_1.classes.Product;
 
 import java.sql.*;
+import java.util.PrimitiveIterator;
 
 public class ProductDAO {
 
@@ -71,24 +72,25 @@ public class ProductDAO {
         }
     }
 
-    public static void select(int _id){
+    public static Product select(int _id){
         Connection connection = ConnectionFactory.getConnection("products_db");
         String sqlCommand = "select `id`, `name`, `description`, `quantity`, `price` from `products_db`.`product` where `id` = '" + _id + "';";
+
+        Product product = new Product();
 
         try(Statement stm = connection.createStatement()){
             ResultSet resultSet = stm.executeQuery(sqlCommand);
             while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int quantity = resultSet.getInt("quantity");
-                double price = resultSet.getDouble("price");
-
-                System.out.println("Produto: " + id + ", " + name + ", " + description + ", " + quantity + ", R$ " + price);
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setDescription(resultSet.getString("description"));
+                product.setQuantity(resultSet.getInt("quantity"));
+                product.setPrice(resultSet.getDouble("price"));
             }
         } catch (SQLException exception){
             exception.printStackTrace();
         }
+        return product;
     }
 
     public static void save(Product product){
@@ -98,9 +100,9 @@ public class ProductDAO {
         try {
             Statement stm = connection.createStatement();
             if(stm != null){
-                System.out.println(stm.executeUpdate(sqlCommand));
+                stm.executeUpdate(sqlCommand);
                 connection.close();
-                System.out.println("Produto adicionado com sucesso!");
+                System.out.println("\t+ " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ", " + product.getPrice());
             }
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -111,17 +113,16 @@ public class ProductDAO {
         Connection connection = ConnectionFactory.getConnection("products_db");
         String sqlCommand = "update `products_db`.`product` set `name` = '" + product.getName() + "', `description` = '" + product.getDescription() + "', `quantity` = '" + product.getQuantity() + "', `price` = '" + product.getPrice()+ "' where (`id` = '" + _id + "');";
 
-//        if(product == null || product.getId() == 0){
-//            System.out.println("Registro inexistente...");
-//            return;
-//        }
+        Product updatedProduct = select(_id);
 
         try {
             Statement stm = connection.createStatement();
             if(stm != null){
-                System.out.println(stm.executeUpdate(sqlCommand));
+                stm.executeUpdate(sqlCommand);
                 connection.close();
-                System.out.println("Produto atualizado com sucesso!");
+                System.out.println("\nProduto atualizado com sucesso:");
+                System.out.println("\t- " + updatedProduct.getName() + ", " + updatedProduct.getDescription() + ", " + updatedProduct.getQuantity() + ", " + updatedProduct.getPrice());
+                System.out.println("\t+ " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ", " + product.getPrice());
             }
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -133,12 +134,15 @@ public class ProductDAO {
         Connection connection = ConnectionFactory.getConnection("products_db");
         String sqlCommand = "delete from `products_db`.`product` where (`id` = '" + _id + "');";
 
+        Product product = select(_id);
+
         try {
             Statement stm = connection.createStatement();
             if(stm != null){
-                System.out.println(stm.executeUpdate(sqlCommand));
+                stm.executeUpdate(sqlCommand);
                 connection.close();
-                System.out.println("Produto deletado com sucesso!");
+                System.out.println("\nProduto deletado com sucesso:");
+                System.out.println("\t- " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ", " + product.getPrice());
             }
             else {
                 System.out.println("Não foi possivel deletar o produto... Statement retornando nulo!");
