@@ -2,7 +2,6 @@ package project_3.classes;
 
 public class SubStringDetector {
     public static void stringIterator(String string){
-        int counter = 0;
         int happyCounter = 0;
         int sadCounter = 0;
 
@@ -25,7 +24,6 @@ public class SubStringDetector {
                     if(c == ':' && string.charAt(i + 1) == '-' && string.charAt(i + 2) == '('){
                         sadCounter++;
                     }
-                    counter++;
                 }
                 if(happyCounter > sadCounter){
                     System.out.println("divertido");
