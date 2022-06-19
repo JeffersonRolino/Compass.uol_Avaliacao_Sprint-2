@@ -38,18 +38,8 @@ public class Catalog {
         this.products.add(_product);
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
     public Product getRandomProduct(){
         int index = randomInt.nextInt(this.products.size());
         return this.products.get(index);
-    }
-
-    public void printAll(){
-        for(Product p : this.getProducts()){
-            System.out.println(p.getName() + ", " + p.getDescription() + ", " + p.getQuantity() + ", " + p.getPrice());
-        }
     }
 }

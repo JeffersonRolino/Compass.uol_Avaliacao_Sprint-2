@@ -4,31 +4,8 @@ import db_connection.ConnectionFactory;
 import project_1.classes.Product;
 
 import java.sql.*;
-import java.util.PrimitiveIterator;
 
 public class ProductDAO {
-
-    // Comando para retornar os últimos 3 produtos do product_db.product:
-    //      SELECT * FROM products_db.product ORDER BY id DESC LIMIT 3;
-    public static void selectLastThree(){
-        Connection connection = ConnectionFactory.getConnection("products_db");
-        String sqlCommand = "select * from `products_db`.`product` order by `id` desc limit 3;";
-
-        try(Statement stm = connection.createStatement()){
-            ResultSet resultSet = stm.executeQuery(sqlCommand);
-            while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int quantity = resultSet.getInt("quantity");
-                double price = resultSet.getDouble("price");
-
-                System.out.println("Produto: " + id + ", " + name + ", " + description + ", " + quantity + ", R$ " + price);
-            }
-        } catch (SQLException exception){
-            exception.printStackTrace();
-        }
-    }
 
     public static int[] selectLastThreeIDs(){
         Connection connection = ConnectionFactory.getConnection("products_db");
@@ -49,27 +26,6 @@ public class ProductDAO {
             exception.printStackTrace();
         }
         return null;
-    }
-
-
-    public static void selectAll(){
-        Connection connection = ConnectionFactory.getConnection("products_db");
-        String sqlCommand = "select `id`, `name`, `description`, `quantity`, `price` from `products_db`.`product`;";
-
-        try(Statement stm = connection.createStatement()){
-            ResultSet resultSet = stm.executeQuery(sqlCommand);
-            while (resultSet.next()){
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                int quantity = resultSet.getInt("quantity");
-                double price = resultSet.getDouble("price");
-
-                System.out.println("Produto: " + id + ", " + name + ", " + description + ", " + quantity + ", R$ " + price);
-            }
-        } catch (SQLException exception){
-            exception.printStackTrace();
-        }
     }
 
     public static Product select(int _id){
@@ -127,7 +83,6 @@ public class ProductDAO {
         } catch (SQLException exception){
             exception.printStackTrace();
         }
-
     }
 
     public static void delete(int _id){
@@ -139,10 +94,15 @@ public class ProductDAO {
         try {
             Statement stm = connection.createStatement();
             if(stm != null){
-                stm.executeUpdate(sqlCommand);
-                connection.close();
-                System.out.println("\nProduto deletado com sucesso:");
-                System.out.println("\t- " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ", " + product.getPrice());
+                if(stm.executeUpdate(sqlCommand) == 0){
+                    System.out.println("\nNao foi possivel deletar o produto, ha somente 1 item no Banco de Dados...");
+                }
+                else {
+                    stm.executeUpdate(sqlCommand);
+                    connection.close();
+                    System.out.println("\nProduto deletado com sucesso:");
+                    System.out.println("\t- " + product.getName() + ", " + product.getDescription() + ", " + product.getQuantity() + ", " + product.getPrice());
+                }
             }
             else {
                 System.out.println("Não foi possivel deletar o produto... Statement retornando nulo!");
@@ -150,6 +110,5 @@ public class ProductDAO {
         } catch (SQLException exception){
             exception.printStackTrace();
         }
-
     }
 }
