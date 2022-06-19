@@ -5,7 +5,7 @@ use movies_db;
 create table `movies_db`.`movies` (
   `id` int not null auto_increment,
   `name` VARCHAR(75) not null,
-  `description` VARCHAR(200) not null,
+  `description` VARCHAR(300) not null,
   `year` int not null,
   primary key(`id`)
 );
@@ -30,7 +30,3 @@ INSERT INTO `movies_db`.`movies` (`name`,`description`,`year`) VALUES ('Goodfell
 INSERT INTO `movies_db`.`movies` (`name`,`description`,`year`) VALUES ('One Flew Over the Cuckoos Nest', 'A criminal pleads insanity and is admitted to a mental institution, where he rebels against the oppressive nurse and rallies up the scared patients.', 1975);
 INSERT INTO `movies_db`.`movies` (`name`,`description`,`year`) VALUES ('Se7en', 'Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his motives.', 1995);
 INSERT INTO `movies_db`.`movies` (`name`,`description`,`year`) VALUES ('Seven Samurai', 'A poor village under attack by bandits recruits seven unemployed samurai to help them defend themselves.', 1954);
-
-
-
-

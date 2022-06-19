@@ -1,15 +1,13 @@
 package project_2.classes;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Catalog {
     private int numberOfMovies;
     private int pageSize;
     private int numberOfPages;
-
-    // Sendo a página n;
-    // Cada página deve listar filmes de ((n - 1) * pageSize) + 1;
-    // até (n) * pageSize;
-    // Por exemplo sendo pageSize = 5;
-    // A página 3 deve listar os filmes 11,12,13,14,15
+    private ArrayList<Movie> movies;
 
     public Catalog(int _numberOfMovies, int _pageSize){
         this.numberOfMovies = _numberOfMovies;
@@ -34,5 +32,28 @@ public class Catalog {
 
     public int getNumberOfPages() {
         return this.numberOfPages;
+    }
+
+    public void setMovies(ArrayList<Movie> _movies){
+        this.movies = _movies;
+    }
+
+    public ArrayList<Movie> getMovies() {
+        return this.movies;
+    }
+
+    // Sendo a página n;
+    // Cada página deve listar filmes de ((n - 1) * pageSize);
+    // até (n) * pageSize;
+    // Por exemplo sendo pageSize = 5;
+    // A página 3 deve listar os filmes 11,12,13,14,15
+    public void queryMovies(int _numberOfMovies, int _page){
+        int indexStart = (_page - 1) * this.pageSize;
+        int indexEnd = _page * this.pageSize;
+
+        for (int i = indexStart; i < indexEnd && i < _numberOfMovies; i++) {
+            System.out.println(this.movies.get(i).getId());
+        }
+
     }
 }
