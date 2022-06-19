@@ -47,15 +47,16 @@ public class Catalog {
     // até (n) * pageSize;
     // Por exemplo sendo pageSize = 5;
     // A página 3 deve listar os filmes 11,12,13,14,15
-    public void queryMovies(int _numberOfMovies, int _page){
+    public ArrayList<Movie> queryMovies(int _numberOfMovies, int _page){
+        ArrayList<Movie> queryMovies = new ArrayList<Movie>();
+
         int indexStart = (_page - 1) * this.pageSize;
         int indexEnd = _page * this.pageSize;
 
-//        System.out.println(indexStart);
-//        System.out.println(indexEnd);
-
         for (int i = indexStart; i < (indexStart + _numberOfMovies) && i < indexEnd; i++) {
-            System.out.println(this.movies.get(i).getId() + ", " + this.movies.get(i).getName());
+            Movie movie = this.movies.get(i);
+            queryMovies.add(movie);
         }
+        return queryMovies;
     }
 }
