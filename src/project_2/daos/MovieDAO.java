@@ -18,7 +18,7 @@ public class MovieDAO {
 
                 Connection connection = ConnectionFactory.getConnection("movies_db");
                 PreparedStatement prepStatement = connection.prepareStatement(sqlCommand);
-                ResultSet resultSet = prepStatement.executeQuery();
+                ResultSet resultSet = prepStatement.executeQuery()
         ) {
             while (resultSet.next()) {
                 Movie movie = new Movie();
